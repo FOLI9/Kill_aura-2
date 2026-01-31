@@ -1,0 +1,64 @@
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+
+]]--
+
+local u = "Clicking [Strings] will completely hide this string!";
+local d = 8023481;
+local r = 1230471;
+local h = 1203456;
+local s = 119;
+local n = 67;
+local i = 113;
+local o = 110638;
+local a = 190952;
+local t = 67600;
+local e = 3864;
+local a = 16164 + (((e + 364101) - 274396) - t) + (a - o);
+a = a + (i - (26 + n)) + (1219 - (s + 997));
+local b = h;
+local c = r;
+local d = d;
+if (c > b) then
+	local l = "true";
+	print(l);
+end
+if ((1 + d) > c) then
+	local c = "obfuscate the conditions!";
+	print(c);
+end
+print(u);
+do
+	local g = 420;
+	function sieve_of_eratosthenes(n)
+		local w = "sqrt";
+		local is_prime = {};
+		for i = 1, n do
+			local m = 1;
+			is_prime[i] = m ~= i;
+		end
+		for i = 2, math.floor(math[w](n)) do
+			if is_prime[i] then
+				for j = i * i, n, i do
+					local f = false;
+					is_prime[j] = f;
+				end
+			end
+		end
+		return is_prime;
+	end
+	local primes = sieve_of_eratosthenes(g);
+	for key, value in pairs(primes) do
+		if value then
+			local y = "Prime found: ";
+			print(y .. key);
+		end
+	end
+end
+print("How to obfuscate best?");
