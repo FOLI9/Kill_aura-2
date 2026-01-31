@@ -1,64 +1,790 @@
 --[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+    TEST SCRIPT for Anticheat Validation
+    Private server testing only
+]]
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-]]--
+-- Создаем GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "TestGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
 
-local u = "Clicking [Strings] will completely hide this string!";
-local d = 8023481;
-local r = 1230471;
-local h = 1203456;
-local s = 119;
-local n = 67;
-local i = 113;
-local o = 110638;
-local a = 190952;
-local t = 67600;
-local e = 3864;
-local a = 16164 + (((e + 364101) - 274396) - t) + (a - o);
-a = a + (i - (26 + n)) + (1219 - (s + 997));
-local b = h;
-local c = r;
-local d = d;
-if (c > b) then
-	local l = "true";
-	print(l);
+-- Основной фрейм
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 260, 0, 380)
+MainFrame.Position = UDim2.new(0.5, -130, 0.5, -190)
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MainFrame.BorderSizePixel = 0
+MainFrame.ClipsDescendants = true
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- Заголовок
+local TitleBar = Instance.new("Frame")
+TitleBar.Name = "TitleBar"
+TitleBar.Size = UDim2.new(1, 0, 0, 25)
+TitleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TitleBar.BorderSizePixel = 0
+TitleBar.Parent = MainFrame
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(1, -50, 1, 0)
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Anticheat Test Panel"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 14
+Title.Parent = TitleBar
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0, 25, 1, 0)
+CloseButton.Position = UDim2.new(1, -25, 0, 0)
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+CloseButton.BorderSizePixel = 0
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 14
+CloseButton.Parent = TitleBar
+
+-- Контент
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Name = "ContentFrame"
+ContentFrame.Size = UDim2.new(1, 0, 1, -25)
+ContentFrame.Position = UDim2.new(0, 0, 0, 25)
+ContentFrame.BackgroundTransparency = 1
+ContentFrame.Parent = MainFrame
+
+-- Кнопка Kill Aura
+local KillAuraButton = Instance.new("TextButton")
+KillAuraButton.Name = "KillAuraButton"
+KillAuraButton.Size = UDim2.new(0.9, 0, 0, 26)
+KillAuraButton.Position = UDim2.new(0.05, 0, 0.03, 0)
+KillAuraButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+KillAuraButton.BorderSizePixel = 0
+KillAuraButton.Text = "Kill Aura: OFF"
+KillAuraButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+KillAuraButton.Font = Enum.Font.SourceSans
+KillAuraButton.TextSize = 12
+KillAuraButton.Parent = ContentFrame
+
+-- Кнопка Underground Mode
+local UndergroundButton = Instance.new("TextButton")
+UndergroundButton.Name = "UndergroundButton"
+UndergroundButton.Size = UDim2.new(0.9, 0, 0, 26)
+UndergroundButton.Position = UDim2.new(0.05, 0, 0.13, 0)
+UndergroundButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+UndergroundButton.BorderSizePixel = 0
+UndergroundButton.Text = "Underground: OFF"
+UndergroundButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+UndergroundButton.Font = Enum.Font.SourceSans
+UndergroundButton.TextSize = 12
+UndergroundButton.Parent = ContentFrame
+
+-- Кнопка Spin X (шашлык)
+local SpinXButton = Instance.new("TextButton")
+SpinXButton.Name = "SpinXButton"
+SpinXButton.Size = UDim2.new(0.44, 0, 0, 26)
+SpinXButton.Position = UDim2.new(0.05, 0, 0.23, 0)
+SpinXButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+SpinXButton.BorderSizePixel = 0
+SpinXButton.Text = "Roll: OFF"
+SpinXButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpinXButton.Font = Enum.Font.SourceSans
+SpinXButton.TextSize = 12
+SpinXButton.Parent = ContentFrame
+
+-- Кнопка Spin Z (шар)
+local SpinZButton = Instance.new("TextButton")
+SpinZButton.Name = "SpinZButton"
+SpinZButton.Size = UDim2.new(0.44, 0, 0, 26)
+SpinZButton.Position = UDim2.new(0.51, 0, 0.23, 0)
+SpinZButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+SpinZButton.BorderSizePixel = 0
+SpinZButton.Text = "Ball: OFF"
+SpinZButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpinZButton.Font = Enum.Font.SourceSans
+SpinZButton.TextSize = 12
+SpinZButton.Parent = ContentFrame
+
+-- Кнопки движения (крестовина)
+local MoveSpeed = 2  -- studs за нажатие
+
+local ForwardButton = Instance.new("TextButton")
+ForwardButton.Name = "ForwardButton"
+ForwardButton.Size = UDim2.new(0.28, 0, 0, 30)
+ForwardButton.Position = UDim2.new(0.36, 0, 0.33, 0)
+ForwardButton.BackgroundColor3 = Color3.fromRGB(40, 100, 40)
+ForwardButton.BorderSizePixel = 0
+ForwardButton.Text = "↑ W"
+ForwardButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ForwardButton.Font = Enum.Font.SourceSansBold
+ForwardButton.TextSize = 14
+ForwardButton.Parent = ContentFrame
+
+local BackwardButton = Instance.new("TextButton")
+BackwardButton.Name = "BackwardButton"
+BackwardButton.Size = UDim2.new(0.28, 0, 0, 30)
+BackwardButton.Position = UDim2.new(0.36, 0, 0.49, 0)
+BackwardButton.BackgroundColor3 = Color3.fromRGB(40, 100, 40)
+BackwardButton.BorderSizePixel = 0
+BackwardButton.Text = "↓ S"
+BackwardButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+BackwardButton.Font = Enum.Font.SourceSansBold
+BackwardButton.TextSize = 14
+BackwardButton.Parent = ContentFrame
+
+local LeftButton = Instance.new("TextButton")
+LeftButton.Name = "LeftButton"
+LeftButton.Size = UDim2.new(0.28, 0, 0, 30)
+LeftButton.Position = UDim2.new(0.05, 0, 0.41, 0)
+LeftButton.BackgroundColor3 = Color3.fromRGB(40, 100, 40)
+LeftButton.BorderSizePixel = 0
+LeftButton.Text = "← A"
+LeftButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+LeftButton.Font = Enum.Font.SourceSansBold
+LeftButton.TextSize = 14
+LeftButton.Parent = ContentFrame
+
+local RightButton = Instance.new("TextButton")
+RightButton.Name = "RightButton"
+RightButton.Size = UDim2.new(0.28, 0, 0, 30)
+RightButton.Position = UDim2.new(0.67, 0, 0.41, 0)
+RightButton.BackgroundColor3 = Color3.fromRGB(40, 100, 40)
+RightButton.BorderSizePixel = 0
+RightButton.Text = "→ D"
+RightButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+RightButton.Font = Enum.Font.SourceSansBold
+RightButton.TextSize = 14
+RightButton.Parent = ContentFrame
+
+-- Кнопки высоты
+local HeightUpButton = Instance.new("TextButton")
+HeightUpButton.Name = "HeightUpButton"
+HeightUpButton.Size = UDim2.new(0.44, 0, 0, 26)
+HeightUpButton.Position = UDim2.new(0.05, 0, 0.59, 0)
+HeightUpButton.BackgroundColor3 = Color3.fromRGB(80, 60, 40)
+HeightUpButton.BorderSizePixel = 0
+HeightUpButton.Text = "↑ Up (Q)"
+HeightUpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+HeightUpButton.Font = Enum.Font.SourceSans
+HeightUpButton.TextSize = 12
+HeightUpButton.Parent = ContentFrame
+
+local HeightDownButton = Instance.new("TextButton")
+HeightDownButton.Name = "HeightDownButton"
+HeightDownButton.Size = UDim2.new(0.44, 0, 0, 26)
+HeightDownButton.Position = UDim2.new(0.51, 0, 0.59, 0)
+HeightDownButton.BackgroundColor3 = Color3.fromRGB(40, 60, 80)
+HeightDownButton.BorderSizePixel = 0
+HeightDownButton.Text = "↓ Down (E)"
+HeightDownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+HeightDownButton.Font = Enum.Font.SourceSans
+HeightUpButton.TextSize = 12
+HeightDownButton.Parent = ContentFrame
+
+-- Текущая позиция
+local CurrentPosLabel = Instance.new("TextLabel")
+CurrentPosLabel.Name = "CurrentPosLabel"
+CurrentPosLabel.Size = UDim2.new(0.9, 0, 0, 16)
+CurrentPosLabel.Position = UDim2.new(0.05, 0, 0.68, 0)
+CurrentPosLabel.BackgroundTransparency = 1
+CurrentPosLabel.Text = "Depth: 3.5 | Move: 2 studs"
+CurrentPosLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+CurrentPosLabel.Font = Enum.Font.SourceSansBold
+CurrentPosLabel.TextSize = 11
+CurrentPosLabel.Parent = ContentFrame
+
+-- Слайдер скорости вращения
+local SpinSpeedLabel = Instance.new("TextLabel")
+SpinSpeedLabel.Name = "SpinSpeedLabel"
+SpinSpeedLabel.Size = UDim2.new(0.9, 0, 0, 16)
+SpinSpeedLabel.Position = UDim2.new(0.05, 0, 0.76, 0)
+SpinSpeedLabel.BackgroundTransparency = 1
+SpinSpeedLabel.Text = "Spin Speed: 5"
+SpinSpeedLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+SpinSpeedLabel.Font = Enum.Font.SourceSans
+SpinSpeedLabel.TextSize = 11
+SpinSpeedLabel.Parent = ContentFrame
+
+local SpinSpeedSlider = Instance.new("TextBox")
+SpinSpeedSlider.Name = "SpinSpeedSlider"
+SpinSpeedSlider.Size = UDim2.new(0.9, 0, 0, 22)
+SpinSpeedSlider.Position = UDim2.new(0.05, 0, 0.83, 0)
+SpinSpeedSlider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+SpinSpeedSlider.BorderSizePixel = 0
+SpinSpeedSlider.Text = "5"
+SpinSpeedSlider.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpinSpeedSlider.Font = Enum.Font.SourceSans
+SpinSpeedSlider.TextSize = 13
+SpinSpeedSlider.ClearTextOnFocus = false
+SpinSpeedSlider.Parent = ContentFrame
+
+-- Слайдер скорости движения
+local MoveSpeedLabel = Instance.new("TextLabel")
+MoveSpeedLabel.Name = "MoveSpeedLabel"
+MoveSpeedLabel.Size = UDim2.new(0.9, 0, 0, 16)
+MoveSpeedLabel.Position = UDim2.new(0.05, 0, 0.89, 0)
+MoveSpeedLabel.BackgroundTransparency = 1
+MoveSpeedLabel.Text = "Move Step: 2 studs"
+MoveSpeedLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+MoveSpeedLabel.Font = Enum.Font.SourceSans
+MoveSpeedLabel.TextSize = 11
+MoveSpeedLabel.Parent = ContentFrame
+
+-- Статус
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Name = "StatusLabel"
+StatusLabel.Size = UDim2.new(0.9, 0, 0, 14)
+StatusLabel.Position = UDim2.new(0.05, 0, 0.96, 0)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text = "Ready for testing"
+StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+StatusLabel.Font = Enum.Font.SourceSans
+StatusLabel.TextSize = 10
+StatusLabel.Parent = ContentFrame
+
+-- Переменные
+local KillAuraEnabled = false
+local UndergroundEnabled = false
+local SpinXEnabled = false
+local SpinZEnabled = false
+local RangePart = nil
+local Platform = nil
+local HeartbeatConnection = nil
+local NoclipConnection = nil
+local StabilizationConnection = nil
+local Range = 50
+local UndergroundDepth = 3.5
+local TargetY = nil
+local TargetX = nil
+local TargetZ = nil
+local PlatformOffset = 2.8
+local SpinSpeed = 5
+local CurrentSpinXAngle = 0
+local CurrentSpinZAngle = 0
+local HeightStep = 0.5
+
+-- Функция закрытия
+CloseButton.MouseButton1Click:Connect(function()
+    if UndergroundEnabled then
+        ToggleUnderground()
+    end
+    if KillAuraEnabled then
+        ToggleKillAura()
+    end
+    ScreenGui:Destroy()
+end)
+
+-- Обновление скорости вращения
+SpinSpeedSlider.FocusLost:Connect(function()
+    local num = tonumber(SpinSpeedSlider.Text)
+    if num and num >= -50 and num <= 50 then
+        SpinSpeed = num
+        SpinSpeedLabel.Text = "Spin Speed: " .. num
+    else
+        SpinSpeedSlider.Text = tostring(SpinSpeed)
+    end
+end)
+
+-- Функция движения
+local function MoveCharacter(direction)
+    if not UndergroundEnabled or not TargetY then return end
+    
+    local Character = LocalPlayer.Character
+    if not Character then return end
+    local HRP = Character:FindFirstChild("HumanoidRootPart")
+    if not HRP then return end
+    
+    local CurrentCFrame = HRP.CFrame
+    local LookVector = CurrentCFrame.LookVector
+    local RightVector = CurrentCFrame.RightVector
+    
+    -- Нормализуем векторы (убираем Y компоненту для движения по горизонтали)
+    LookVector = Vector3.new(LookVector.X, 0, LookVector.Z).Unit
+    RightVector = Vector3.new(RightVector.X, 0, RightVector.Z).Unit
+    
+    if direction == "forward" then
+        TargetX = TargetX + LookVector.X * MoveSpeed
+        TargetZ = TargetZ + LookVector.Z * MoveSpeed
+    elseif direction == "backward" then
+        TargetX = TargetX - LookVector.X * MoveSpeed
+        TargetZ = TargetZ - LookVector.Z * MoveSpeed
+    elseif direction == "left" then
+        TargetX = TargetX - RightVector.X * MoveSpeed
+        TargetZ = TargetZ - RightVector.Z * MoveSpeed
+    elseif direction == "right" then
+        TargetX = TargetX + RightVector.X * MoveSpeed
+        TargetZ = TargetZ + RightVector.Z * MoveSpeed
+    end
+    
+    StatusLabel.Text = "Moving: " .. direction
 end
-if ((1 + d) > c) then
-	local c = "obfuscate the conditions!";
-	print(c);
+
+-- Изменение высоты (глубины)
+local function ChangeHeight(direction)
+    if not UndergroundEnabled or not TargetY then return end
+    
+    local newDepth = UndergroundDepth - (direction * HeightStep)
+    if newDepth < 0.5 then newDepth = 0.5 end
+    if newDepth > 15 then newDepth = 15 end
+    
+    UndergroundDepth = newDepth
+    PlatformOffset = newDepth - 0.7
+    
+    if direction == 1 then
+        TargetY = TargetY + HeightStep
+    else
+        TargetY = TargetY - HeightStep
+    end
+    
+    if Platform then
+        Platform.Position = Vector3.new(Platform.Position.X, TargetY - PlatformOffset, Platform.Position.Z)
+    end
+    
+    CurrentPosLabel.Text = "Depth: " .. string.format("%.1f", UndergroundDepth) .. " | Move: " .. MoveSpeed .. " studs"
+    StatusLabel.Text = "Height changed: " .. (direction > 0 and "UP" or "DOWN")
 end
-print(u);
-do
-	local g = 420;
-	function sieve_of_eratosthenes(n)
-		local w = "sqrt";
-		local is_prime = {};
-		for i = 1, n do
-			local m = 1;
-			is_prime[i] = m ~= i;
-		end
-		for i = 2, math.floor(math[w](n)) do
-			if is_prime[i] then
-				for j = i * i, n, i do
-					local f = false;
-					is_prime[j] = f;
-				end
-			end
-		end
-		return is_prime;
-	end
-	local primes = sieve_of_eratosthenes(g);
-	for key, value in pairs(primes) do
-		if value then
-			local y = "Prime found: ";
-			print(y .. key);
-		end
-	end
+
+-- Обработчики кнопок движения
+ForwardButton.MouseButton1Click:Connect(function() MoveCharacter("forward") end)
+BackwardButton.MouseButton1Click:Connect(function() MoveCharacter("backward") end)
+LeftButton.MouseButton1Click:Connect(function() MoveCharacter("left") end)
+RightButton.MouseButton1Click:Connect(function() MoveCharacter("right") end)
+HeightUpButton.MouseButton1Click:Connect(function() ChangeHeight(1) end)
+HeightDownButton.MouseButton1Click:Connect(function() ChangeHeight(-1) end)
+
+-- Клавиатурное управление
+local KeyConnection = nil
+
+local function EnableKeyboardControl()
+    if KeyConnection then KeyConnection:Disconnect() end
+    
+    KeyConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        if not UndergroundEnabled then return end
+        
+        if input.KeyCode == Enum.KeyCode.W then
+            MoveCharacter("forward")
+        elseif input.KeyCode == Enum.KeyCode.S then
+            MoveCharacter("backward")
+        elseif input.KeyCode == Enum.KeyCode.A then
+            MoveCharacter("left")
+        elseif input.KeyCode == Enum.KeyCode.D then
+            MoveCharacter("right")
+        elseif input.KeyCode == Enum.KeyCode.Q then
+            ChangeHeight(1)
+        elseif input.KeyCode == Enum.KeyCode.E then
+            ChangeHeight(-1)
+        elseif input.KeyCode == Enum.KeyCode.Up then
+            MoveSpeed = math.min(MoveSpeed + 1, 10)
+            MoveSpeedLabel.Text = "Move Step: " .. MoveSpeed .. " studs"
+        elseif input.KeyCode == Enum.KeyCode.Down then
+            MoveSpeed = math.max(MoveSpeed - 1, 1)
+            MoveSpeedLabel.Text = "Move Step: " .. MoveSpeed .. " studs"
+        end
+    end)
 end
-print("How to obfuscate best?");
+
+local function DisableKeyboardControl()
+    if KeyConnection then
+        KeyConnection:Disconnect()
+        KeyConnection = nil
+    end
+end
+
+-- NoClip функция
+local function EnableNoclip()
+    if NoclipConnection then
+        NoclipConnection:Disconnect()
+        NoclipConnection = nil
+    end
+    
+    NoclipConnection = RunService.Stepped:Connect(function()
+        if not UndergroundEnabled then return end
+        local Character = LocalPlayer.Character
+        if not Character then return end
+        
+        for _, Part in pairs(Character:GetDescendants()) do
+            if Part:IsA("BasePart") and Part ~= Platform then
+                Part.CanCollide = false
+            end
+        end
+    end)
+end
+
+local function DisableNoclip()
+    if NoclipConnection then
+        NoclipConnection:Disconnect()
+        NoclipConnection = nil
+    end
+    
+    local Character = LocalPlayer.Character
+    if Character then
+        for _, Part in pairs(Character:GetDescendants()) do
+            if Part:IsA("BasePart") then
+                Part.CanCollide = true
+            end
+        end
+    end
+end
+
+-- Kill Aura функции
+local function EnableKillAura()
+    if HeartbeatConnection then
+        HeartbeatConnection:Disconnect()
+        HeartbeatConnection = nil
+    end
+    
+    RangePart = Instance.new("Part")
+    RangePart.Name = "KillAuraRange"
+    RangePart.Shape = Enum.PartType.Ball
+    RangePart.Size = Vector3.new(Range * 2, Range * 2, Range * 2)
+    RangePart.Anchored = true
+    RangePart.CanCollide = false
+    RangePart.Transparency = 0.9
+    RangePart.Material = Enum.Material.Neon
+    RangePart.Color = Color3.fromRGB(255, 0, 0)
+    RangePart.Parent = workspace
+
+    HeartbeatConnection = RunService.Heartbeat:Connect(function()
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            RangePart.Position = LocalPlayer.Character.HumanoidRootPart.Position
+            
+            local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            if Tool and Tool:FindFirstChild("Handle") then
+                local PartsInRange = workspace:GetPartsInPart(RangePart)
+                for _, Part in ipairs(PartsInRange) do
+                    if Part.Parent and Part.Parent ~= LocalPlayer.Character and Part.Parent:FindFirstChildOfClass("Humanoid") then
+                        Tool:Activate()
+                        pcall(function()
+                            firetouchinterest(Tool.Handle, Part, 0)
+                            firetouchinterest(Tool.Handle, Part, 1)
+                        end)
+                    end
+                end
+            end
+        end
+    end)
+end
+
+local function DisableKillAura()
+    if HeartbeatConnection then
+        HeartbeatConnection:Disconnect()
+        HeartbeatConnection = nil
+    end
+    if RangePart then
+        RangePart:Destroy()
+        RangePart = nil
+    end
+end
+
+function ToggleKillAura()
+    KillAuraEnabled = not KillAuraEnabled
+    if KillAuraEnabled then
+        KillAuraButton.Text = "Kill Aura: ON"
+        KillAuraButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        EnableKillAura()
+        StatusLabel.Text = "Kill Aura active"
+    else
+        KillAuraButton.Text = "Kill Aura: OFF"
+        KillAuraButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        DisableKillAura()
+        StatusLabel.Text = "Kill Aura disabled"
+    end
+end
+
+-- Underground Mode функции
+local UndergroundHeartbeat = nil
+
+local function EnableUnderground()
+    if UndergroundHeartbeat then
+        UndergroundHeartbeat:Disconnect()
+        UndergroundHeartbeat = nil
+    end
+    if StabilizationConnection then
+        StabilizationConnection:Disconnect()
+        StabilizationConnection = nil
+    end
+    
+    local Character = LocalPlayer.Character
+    if not Character then 
+        StatusLabel.Text = "Error: No character"
+        return 
+    end
+    
+    local Humanoid = Character:WaitForChild("Humanoid")
+    local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+    
+    Humanoid.AutoRotate = false
+    Humanoid.PlatformStand = true
+    Humanoid.Sit = false
+    
+    local CurrentPos = HumanoidRootPart.Position
+    TargetX = CurrentPos.X
+    TargetY = CurrentPos.Y - UndergroundDepth
+    TargetZ = CurrentPos.Z
+    
+    if Platform then
+        Platform:Destroy()
+        Platform = nil
+    end
+    
+    Platform = Instance.new("Part")
+    Platform.Name = "UndergroundPlatform"
+    Platform.Size = Vector3.new(12, 4, 12)
+    Platform.Anchored = true
+    Platform.CanCollide = true
+    Platform.Transparency = 0.3
+    Platform.Material = Enum.Material.Neon
+    Platform.Color = Color3.fromRGB(0, 255, 255)
+    Platform.Position = Vector3.new(TargetX, TargetY - PlatformOffset, TargetZ)
+    Platform.Parent = workspace
+    
+    CurrentSpinXAngle = 0
+    CurrentSpinZAngle = 0
+    
+    HumanoidRootPart.CFrame = CFrame.new(TargetX, TargetY, TargetZ) * CFrame.Angles(math.rad(90), 0, 0)
+    HumanoidRootPart.Velocity = Vector3.zero
+    HumanoidRootPart.RotVelocity = Vector3.zero
+    HumanoidRootPart.AssemblyLinearVelocity = Vector3.zero
+    HumanoidRootPart.AssemblyAngularVelocity = Vector3.zero
+    
+    EnableNoclip()
+    EnableKeyboardControl()
+    
+    -- Стабилизация с движением
+    StabilizationConnection = RunService.RenderStepped:Connect(function(dt)
+        if not UndergroundEnabled then return end
+        local Char = LocalPlayer.Character
+        if not Char then return end
+        local HRP = Char:FindFirstChild("HumanoidRootPart")
+        if not HRP then return end
+        
+        -- Обновляем углы вращения
+        if SpinXEnabled then
+            CurrentSpinXAngle = CurrentSpinXAngle + (SpinSpeed * dt * 60)
+            if CurrentSpinXAngle >= 360 then
+                CurrentSpinXAngle = CurrentSpinXAngle - 360
+            end
+        end
+        
+        if SpinZEnabled then
+            CurrentSpinZAngle = CurrentSpinZAngle - (SpinSpeed * dt * 60)
+            if CurrentSpinZAngle <= -360 then
+                CurrentSpinZAngle = CurrentSpinZAngle + 360
+            end
+        end
+        
+        local BaseRotation = math.rad(90) + math.rad(CurrentSpinXAngle)
+        local ZRotation = math.rad(CurrentSpinZAngle)
+        
+        -- Плавное движение к целевой позиции (только X/Z, Y жёстко)
+        local CurrentPos = HRP.Position
+        local LerpFactor = math.min(dt * 10, 1)  -- Плавность движения
+        
+        TargetX = TargetX + (TargetX - CurrentPos.X) * 0  -- Фиксируем если не двигаемся
+        TargetZ = TargetZ + (TargetZ - CurrentPos.Z) * 0
+        
+        local NewX = CurrentPos.X + (TargetX - CurrentPos.X) * LerpFactor
+        local NewZ = CurrentPos.Z + (TargetZ - CurrentPos.Z) * LerpFactor
+        
+        HRP.CFrame = CFrame.new(NewX, TargetY, NewZ) * CFrame.Angles(BaseRotation, 0, ZRotation)
+        
+        HRP.Velocity = Vector3.zero
+        HRP.RotVelocity = Vector3.zero
+        HRP.AssemblyLinearVelocity = Vector3.zero
+        HRP.AssemblyAngularVelocity = Vector3.zero
+    end)
+    
+    -- Платформа следует
+    local LastUpdate = tick()
+    UndergroundHeartbeat = RunService.Heartbeat:Connect(function()
+        local CurrentCharacter = LocalPlayer.Character
+        if not CurrentCharacter then return end
+        local CurrentHRP = CurrentCharacter:FindFirstChild("HumanoidRootPart")
+        if not CurrentHRP or not Platform then return end
+        
+        local Now = tick()
+        local Delta = Now - LastUpdate
+        LastUpdate = Now
+        
+        local TargetPlatformY = TargetY - PlatformOffset
+        
+        local SmoothFactor = math.min(Delta * 15, 1)
+        local NewX = Platform.Position.X + (TargetX - Platform.Position.X) * SmoothFactor
+        local NewZ = Platform.Position.Z + (TargetZ - Platform.Position.Z) * SmoothFactor
+        
+        Platform.CFrame = CFrame.new(NewX, TargetPlatformY, NewZ)
+    end)
+    
+    CurrentPosLabel.Text = "Depth: " .. string.format("%.1f", UndergroundDepth) .. " | Move: " .. MoveSpeed .. " studs"
+    UpdateStatus()
+end
+
+local function DisableUnderground()
+    if StabilizationConnection then
+        StabilizationConnection:Disconnect()
+        StabilizationConnection = nil
+    end
+    if UndergroundHeartbeat then
+        UndergroundHeartbeat:Disconnect()
+        UndergroundHeartbeat = nil
+    end
+    
+    DisableNoclip()
+    DisableKeyboardControl()
+    
+    if Platform then
+        Platform:Destroy()
+        Platform = nil
+    end
+    
+    local Character = LocalPlayer.Character
+    if Character then
+        local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+        local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+        
+        if Humanoid then
+            Humanoid.AutoRotate = true
+            Humanoid.PlatformStand = false
+        end
+        
+        if HumanoidRootPart and TargetY then
+            HumanoidRootPart.CFrame = CFrame.new(
+                HumanoidRootPart.Position.X, 
+                TargetY + UndergroundDepth, 
+                HumanoidRootPart.Position.Z
+            ) * CFrame.Angles(0, math.atan2(
+                HumanoidRootPart.CFrame.LookVector.X,
+                HumanoidRootPart.CFrame.LookVector.Z
+            ), 0)
+            HumanoidRootPart.Velocity = Vector3.zero
+        end
+    end
+    
+    TargetX = nil
+    TargetY = nil
+    TargetZ = nil
+    StatusLabel.Text = "Underground mode disabled"
+end
+
+function UpdateStatus()
+    if not UndergroundEnabled then
+        StatusLabel.Text = "Underground: off"
+        return
+    end
+    
+    local modes = {}
+    if SpinXEnabled then table.insert(modes, "Roll") end
+    if SpinZEnabled then table.insert(modes, "Ball") end
+    
+    if #modes == 0 then
+        StatusLabel.Text = "WASD to move | Q/E height"
+    else
+        StatusLabel.Text = table.concat(modes, "+") .. " | WASD move"
+    end
+end
+
+function ToggleUnderground()
+    UndergroundEnabled = not UndergroundEnabled
+    if UndergroundEnabled then
+        UndergroundButton.Text = "Underground: ON"
+        UndergroundButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        EnableUnderground()
+    else
+        UndergroundButton.Text = "Underground: OFF"
+        UndergroundButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        DisableUnderground()
+    end
+end
+
+function ToggleSpinX()
+    SpinXEnabled = not SpinXEnabled
+    if SpinXEnabled then
+        SpinXButton.Text = "Roll: ON"
+        SpinXButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+    else
+        SpinXButton.Text = "Roll: OFF"
+        SpinXButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end
+    if UndergroundEnabled then
+        UpdateStatus()
+    end
+end
+
+function ToggleSpinZ()
+    SpinZEnabled = not SpinZEnabled
+    if SpinZEnabled then
+        SpinZButton.Text = "Ball: ON"
+        SpinZButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+    else
+        SpinZButton.Text = "Ball: OFF"
+        SpinZButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end
+    if UndergroundEnabled then
+        UpdateStatus()
+    end
+end
+
+-- Обработчики кнопок
+KillAuraButton.MouseButton1Click:Connect(ToggleKillAura)
+UndergroundButton.MouseButton1Click:Connect(ToggleUnderground)
+SpinXButton.MouseButton1Click:Connect(ToggleSpinX)
+SpinZButton.MouseButton1Click:Connect(ToggleSpinZ)
+
+-- Обработка смерти и респавна
+LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
+    StatusLabel.Text = "Character respawned, restoring..."
+    
+    local Humanoid = NewCharacter:WaitForChild("Humanoid")
+    local HRP = NewCharacter:WaitForChild("HumanoidRootPart")
+    
+    task.wait(0.5)
+    
+    if KillAuraEnabled then
+        EnableKillAura()
+    end
+    
+    if UndergroundEnabled then
+        local CurrentPos = HRP.Position
+        TargetX = CurrentPos.X
+        TargetY = CurrentPos.Y - UndergroundDepth
+        TargetZ = CurrentPos.Z
+        EnableUnderground()
+    end
+    
+    StatusLabel.Text = "Restored after respawn"
+end)
+
+LocalPlayer.CharacterRemoving:Connect(function()
+    StatusLabel.Text = "Character removing..."
+    if StabilizationConnection then
+        StabilizationConnection:Disconnect()
+        StabilizationConnection = nil
+    end
+    if UndergroundHeartbeat then
+        UndergroundHeartbeat:Disconnect()
+        UndergroundHeartbeat = nil
+    end
+    if NoclipConnection then
+        NoclipConnection:Disconnect()
+        NoclipConnection = nil
+    end
+    DisableKeyboardControl()
+    if Platform then
+        Platform:Destroy()
+        Platform = nil
+    end
+end)
